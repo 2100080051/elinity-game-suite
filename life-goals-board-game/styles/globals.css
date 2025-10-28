@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next { height: 100%; }
+body { @apply bg-gradient-to-br from-board-900 via-board-700 to-board-500 text-white; }
+.brand { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-sm; }
+.card { @apply bg-white/10 border border-white/10 rounded-2xl backdrop-blur-xl shadow-glow; }
+.btn { @apply px-4 py-2 rounded-xl bg-white/20 hover:bg-white/30 transition; }
+.btn-ghost { @apply px-4 py-2 rounded-xl bg-white/10 border border-white/10; }
+.tile { @apply aspect-square rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-lg font-semibold; }
+.tile-active { @apply ring-2 ring-accent; }

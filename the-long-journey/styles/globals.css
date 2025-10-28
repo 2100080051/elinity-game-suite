@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next { height: 100%; }
+body { @apply bg-gradient-to-br from-aurora-900 via-black to-aurora-800 text-white; }
+.glass { @apply bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl shadow-aura; }
+.brand-badge { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-sm; }
+.accent { color: #bfa26a; }

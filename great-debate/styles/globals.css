@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next {
+  height: 100%;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* Debate theme - red vs blue gradient */
+body {
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(239,68,68,0.2), transparent 10%),
+              radial-gradient(900px 500px at 90% 90%, rgba(59,130,246,0.2), transparent 10%),
+              linear-gradient(135deg, #ef4444 0%, #8b5cf6 50%, #3b82f6 100%);
+}
+
+.glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px) saturate(120%); border: 1px solid rgba(255,255,255,0.1) }
+.glass-strong { background: rgba(255,255,255,0.12); backdrop-filter: blur(12px) saturate(130%); border: 1px solid rgba(255,255,255,0.16) }
+.card-shadow { box-shadow: 0 6px 20px rgba(11,11,15,0.45) }
+
+/* Topic display */
+.topic-card { background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(236,72,153,0.15)); border: 2px solid rgba(139,92,246,0.4); padding: 24px; border-radius: 16px; text-align: center }
+
+/* Side badges */
+.side-for { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; padding: 8px 16px; border-radius: 9999px; font-weight: 600; display: inline-block }
+.side-against { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 8px 16px; border-radius: 9999px; font-weight: 600; display: inline-block }
+
+/* Argument cards */
+.argument-for { background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(59,130,246,0.04)); border-left: 4px solid #3b82f6; padding: 16px; border-radius: 12px; margin-bottom: 12px }
+.argument-against { background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(239,68,68,0.04)); border-left: 4px solid #ef4444; padding: 16px; border-radius: 12px; margin-bottom: 12px }
+
+/* AI commentary */
+.ai-commentary { background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(251,191,36,0.1)); border: 1px solid rgba(245,158,11,0.3); padding: 16px; border-radius: 12px; margin: 16px 0; font-style: italic }
+
+/* Winner badge */
+.winner-badge { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #000; padding: 12px 24px; border-radius: 9999px; font-weight: 800; font-size: 1.25rem; display: inline-block; box-shadow: 0 8px 24px rgba(251,191,36,0.4); animation: pulse 2s ease-in-out infinite }
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Turn indicator */
+.turn-indicator { background: rgba(139,92,246,0.2); border: 2px solid #8b5cf6; padding: 12px 20px; border-radius: 12px; display: inline-block; font-weight: 600; animation: glow 1.5s ease-in-out infinite }
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 10px rgba(139,92,246,0.3); }
+  50% { box-shadow: 0 0 20px rgba(139,92,246,0.6); }
+}
+
+/* Buttons */
+.btn-primary { background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: #fff; transition: transform 160ms ease, box-shadow 160ms ease }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(139,92,246,0.3) }
+.btn-secondary { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.16); transition: all 160ms ease }
+.btn-secondary:hover { background: rgba(255,255,255,0.14) }
+.btn-for { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; transition: all 160ms ease }
+.btn-for:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,0.3) }
+.btn-against { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; transition: all 160ms ease }
+.btn-against:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(239,68,68,0.3) }
+
+/* Input/Textarea */
+textarea, input { color: #fff; background: rgba(0,0,0,0.28); caret-color: #fff; border: 1px solid rgba(255,255,255,0.1) }
+textarea::placeholder, input::placeholder { color: rgba(255,255,255,0.55) }
+textarea:focus, input:focus { outline: none; box-shadow: 0 8px 28px rgba(139,92,246,0.2); border: 1px solid rgba(255,255,255,0.18) }
+
+/* Emoji reactions */
+.emoji-reaction { font-size: 1.5rem; cursor: pointer; opacity: 0.6; transition: all 200ms ease; display: inline-block; margin: 0 4px }
+.emoji-reaction:hover { opacity: 1; transform: scale(1.3) }
+.emoji-reaction.selected { opacity: 1; transform: scale(1.2) }
+
+::-webkit-scrollbar { width: 8px }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 9999px }
+
+/* Elinity brand badge */
+.elinity-badge{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 2px rgba(255,255,255,0.1);
+  z-index: 9999;
+  animation: badge-glow 3s ease-in-out infinite;
+}
+.elinity-badge::before{ content:'⚡'; margin-right:6px; animation: pulse-badge 2s ease-in-out infinite; }
+@keyframes badge-glow{
+  0%,100%{ box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 2px rgba(139,92,246,0.35), 0 0 24px rgba(239,68,68,0.3); }
+  50%{ box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 2px rgba(59,130,246,0.35), 0 0 24px rgba(59,130,246,0.3); }
+}
+@keyframes pulse-badge{ 0%,100%{ transform: scale(1);} 50%{ transform: scale(1.2);} }

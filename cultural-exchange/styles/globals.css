@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html, body, #__next { height: 100%; }
+	body { @apply text-white bg-surface-100; }
+	/* Remove mobile blue tap highlight */
+	* { -webkit-tap-highlight-color: transparent; }
+	/* Custom text selection (replaces default blue) */
+	::selection { background-color: rgba(167,139,250,.45); color: #fff; }
+}
+
+@layer components {
+	/* Animated layered gradient background */
+	.app-bg { @apply fixed inset-0 -z-10 bg-elinity-gradient bg-[length:200%_200%] animate-gradientBG; }
+
+	/* Subtle noise overlay */
+	.app-noise {
+		pointer-events: none;
+		position: fixed;
+		inset: 0;
+		z-index: -5;
+		background-image: url('data:image/svg+xml;utf8,<?xml version="1.0" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.03"/></svg>');
+	}
+
+	/* Layout helpers */
+	.container { @apply mx-auto max-w-4xl px-5; }
+	.content-card { @apply bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 shadow-glow; }
+
+	/* Brand and header */
+	.header-bar { @apply sticky top-0 z-40 backdrop-blur bg-surface-100/70 border-b border-white/10; }
+	.brand { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-sm shadow-soft; }
+	.brand-gradient { @apply bg-gradient-to-r from-indigo-400 via-elinity-400 to-accent-amber bg-clip-text text-transparent drop-shadow-glow; }
+
+	/* Typography */
+	.hook { @apply font-serif text-4xl md:text-5xl font-semibold leading-tight text-white; }
+	.subtle { @apply text-white/80; }
+
+	/* Components */
+	.glass { @apply bg-white/10 backdrop-blur-md rounded-2xl; }
+	.chip { @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 text-white/90 border border-white/10; }
+	.chip-pill { @apply px-3 py-1 rounded-full; }
+	.badge { @apply inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-100 border border-indigo-400/30 text-xs; }
+
+	.textbox { @apply flex-1 px-3 py-2.5 rounded-xl bg-white/10 placeholder-white/60 border border-white/15 focus:outline-none focus:ring-2 focus:ring-indigo-400/60; }
+		/* Styled select to avoid default blue/white highlight */
+		.select { @apply appearance-none textbox pr-10; background-repeat: no-repeat; background-position: right .75rem center; background-size: 16px 16px; }
+		.select { background-image: url("data:image/svg+xml;utf8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' viewBox='0 0 16 16'><path d='M3.2 5.6l4.8 4.8 4.8-4.8' stroke='white' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>"); }
+		select.select option { background-color: #17172a; color: #fff; }
+		select.select option:checked { background-color: rgba(99,102,241,.35); color: #fff; }
+		select.select option:hover { background-color: rgba(139,92,246,.35); color: #fff; }
+
+		.btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-semibold transition will-change-transform; }
+		.btn-lg { @apply px-5 py-3 text-base; }
+		.btn-primary { @apply text-surface-50 bg-gradient-to-r from-indigo-500 via-elinity-500 to-accent-amber shadow-glow; background-size: 200% 200%; animation: gradientBG 12s ease infinite; }
+		.btn-primary:hover { @apply -translate-y-0.5; filter: brightness(1.03); }
+		.btn-primary:focus-visible { @apply outline-none ring-2 ring-indigo-400/60; }
+		.btn-primary:active { transform: translateY(0); filter: brightness(0.98); }
+		.btn-secondary { @apply text-white bg-white/10 border border-white/15 shadow-soft; }
+		.btn-secondary:hover { @apply bg-white/15; }
+		.btn-secondary:focus-visible { @apply outline-none ring-2 ring-indigo-400/60; }
+		.btn-secondary:active { filter: brightness(1.03); }
+
+	.deck { @apply flex gap-2 flex-wrap mt-3; }
+		.role { @apply chip-pill bg-white/10 hover:bg-white/15 border border-white/10 cursor-pointer transition select-none; }
+
+	.bubble { @apply rounded-2xl px-4 py-3 shadow-soft border border-white/10 glass animate-fadeInUp; }
+	.bubble-ai { @apply bg-indigo-500/15 border-indigo-400/30; }
+	.bubble-improv { @apply bg-amber-400/15 border-amber-300/30; }
+
+	.inputbar { @apply flex gap-2 items-center mt-4; }
+	.send { @apply btn btn-primary; }
+
+	/* Small entrance delays */
+	.delay-1 { animation-delay: .05s; }
+	.delay-2 { animation-delay: .1s; }
+	.delay-3 { animation-delay: .15s; }
+	.delay-4 { animation-delay: .2s; }
+}

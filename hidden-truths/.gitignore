@@ -1,0 +1,4 @@
+node_modules
+.next
+.env
+hidden_truths_rounds.json

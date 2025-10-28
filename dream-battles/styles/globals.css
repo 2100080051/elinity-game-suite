@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next { height: 100%; }
+body {
+  @apply bg-gradient-to-br from-dream-900 via-black to-dream-800 text-white;
+}
+
+.glass {
+  @apply bg-white/10 backdrop-blur-xl border border-white/10 rounded-2xl shadow-glow;
+}
+
+.brand-badge {
+  @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-sm;
+}
+
+.card-tilt {
+  transform-style: preserve-3d;
+  transition: transform 300ms ease;
+}
+.card-tilt:hover { transform: rotateX(4deg) rotateY(-4deg) translateZ(4px); }

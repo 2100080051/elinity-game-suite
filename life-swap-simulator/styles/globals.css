@@ -1,0 +1,262 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Premium warm imaginative theme */
+:root {
+  --bg-start: 255, 243, 233; /* peach */
+  --bg-end: 235, 248, 248;   /* mint */
+  --text: 19, 26, 34;        /* near-black */
+  --classic-ink: 23, 29, 42; /* deep navy */
+  --classic-paper: 255, 252, 245;
+  --classic-paper-edge: 248, 243, 230;
+  --classic-gold: 161, 98, 7;
+}
+
+html, body, #__next { height: 100%; }
+
+body {
+  @apply antialiased text-slate-900 bg-gradient-to-br from-[rgba(var(--bg-start),0.9)] to-[rgba(var(--bg-end),0.9)];
+}
+
+.container {
+  @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.glass {
+  @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] rounded-2xl;
+}
+
+.section-title {
+  @apply text-2xl sm:text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-amber-600 via-violet-600 to-teal-600 drop-shadow;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-semibold transition-transform duration-150 active:scale-95 shadow-sm;
+}
+.btn-primary {
+  @apply btn text-white bg-gradient-to-r from-amber-600 to-pink-600 hover:from-amber-500 hover:to-pink-500;
+}
+.btn-secondary {
+  @apply btn text-amber-900 bg-amber-100 hover:bg-amber-200 border border-amber-200;
+}
+.btn-outline {
+  @apply btn text-teal-700 bg-white/70 border border-teal-200 hover:bg-teal-50;
+}
+
+.input {
+  @apply w-full px-3 py-2 rounded-xl border border-slate-200 bg-white/70 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:bg-white transition;
+}
+.textarea {
+  @apply input min-h-[120px] resize-y;
+}
+
+.badge {
+  @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/70 border border-slate-200 shadow;
+}
+
+.card {
+  @apply glass p-5 sm:p-6;
+}
+
+.kbd {
+  @apply px-2 py-1 rounded-md border border-slate-300 bg-slate-50 text-xs font-mono shadow;
+}
+
+/* Animated aurora background */
+.aurora {
+  position: fixed;
+  inset: -20% -10% -10% -10%;
+  z-index: -1;
+  background: radial-gradient(60% 40% at 10% 10%, rgba(245, 158, 11, 0.25), transparent 60%),
+              radial-gradient(50% 40% at 90% 20%, rgba(59, 130, 246, 0.18), transparent 60%),
+              radial-gradient(60% 50% at 30% 90%, rgba(16, 185, 129, 0.20), transparent 60%);
+  filter: blur(30px) saturate(120%);
+  animation: aurora-move 24s ease-in-out infinite alternate;
+}
+@keyframes aurora-move {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-2%) scale(1.02); }
+  100% { transform: translateY(1%) scale(1.01); }
+}
+
+/* Subtle grid overlay */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+}
+
+/* Card hover and gradient borders */
+.card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 40px -20px rgba(0,0,0,0.35);
+}
+.card-gradient {
+  background: linear-gradient(135deg, rgba(255,255,255,0.75), rgba(255,255,255,0.55));
+  border: 1px solid rgba(255,255,255,0.55);
+}
+
+/* Meters */
+.meter {
+  @apply h-2 w-full rounded-full bg-white/50 border border-white/60 overflow-hidden;
+}
+.meter-fill {
+  @apply h-full rounded-full bg-gradient-to-r from-amber-500 to-pink-500;
+  transition: width 400ms ease;
+}
+
+/* Header brand bar removed per design feedback */
+
+/* Sticky play progress */
+.play-status {
+  position: sticky; top: 48px; z-index: 20;
+  @apply backdrop-blur-md bg-white/70 border-b border-white/50;
+}
+.theme-classic .play-status {
+  @apply bg-[rgba(255,255,255,0.9)] border-b border-[rgba(0,0,0,0.08)];
+}
+.play-progress { height: 3px; @apply w-full rounded-full bg-white/60 overflow-hidden; }
+.play-progress-fill { height: 3px; @apply bg-gradient-to-r from-amber-500 to-pink-500; transition: width 400ms ease; }
+
+/* Spinner */
+.spinner {
+  width: 16px; height: 16px; border-radius: 9999px;
+  border: 2px solid rgba(0,0,0,0.1); border-top-color: rgba(245, 158, 11, 0.9);
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Toast */
+.toast-wrap { position: fixed; right: 16px; bottom: 16px; z-index: 50; }
+.toast { @apply glass p-3 text-sm shadow-lg; }
+
+/* Entrance animations */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in-up { opacity: 0; transform: translateY(6px); animation: fadeInUp 500ms ease forwards; }
+}
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+/* ========= Classic Theme ========= */
+.theme-classic .aurora, .theme-classic .grid-overlay { display: none; }
+.paper-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1200px 600px at 20% -10%, rgba(var(--classic-gold),0.06), transparent 60%),
+    radial-gradient(900px 500px at 110% 30%, rgba(0,0,0,0.06), transparent 60%),
+    linear-gradient(180deg, rgba(var(--classic-paper),1), rgba(var(--classic-paper-edge),1));
+}
+.paper-background::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 3px);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.theme-classic .section-title {
+  background: none !important;
+  color: rgb(var(--classic-ink));
+  letter-spacing: 0.2px;
+  position: relative;
+}
+.theme-classic .section-title::after {
+  content: '';
+  display: block;
+  width: 72px; height: 3px;
+  margin-top: 8px;
+  background: linear-gradient(90deg, rgba(var(--classic-gold),1), rgba(var(--classic-gold),0.2));
+  border-radius: 9999px;
+}
+
+.theme-classic .card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 12px 24px -16px rgba(0,0,0,0.3);
+}
+.theme-classic .badge {
+  background: rgba(255,255,255,0.9);
+  border-color: rgba(0,0,0,0.08);
+  color: rgb(var(--classic-ink));
+}
+.theme-classic .btn-primary {
+  background: linear-gradient(90deg, rgba(var(--classic-gold),0.95), rgba(217, 119, 6, 0.9));
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.theme-classic .btn-outline {
+  border: 1px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.85);
+}
+.theme-classic .input, .theme-classic .textarea {
+  background: rgba(255,255,255,0.95);
+  border-color: rgba(0,0,0,0.12);
+}
+
+.ornament {
+  display: flex; align-items: center; gap: 10px;
+}
+.ornament::before, .ornament::after {
+  content: '';
+  height: 1px; flex: 1;
+  background: linear-gradient(90deg, rgba(0,0,0,0.1), rgba(0,0,0,0));
+}
+.ornament .diamond {
+  width: 10px; height: 10px; transform: rotate(45deg);
+  background: linear-gradient(135deg, rgba(var(--classic-gold),0.9), rgba(var(--classic-gold),0.5));
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.theme-classic .dropcap::first-letter {
+  font-family: 'Cormorant Garamond', 'Playfair Display', ui-serif, Georgia, serif;
+  font-size: 2.75em; font-weight: 600; line-height: 0.8;
+  float: left; margin: 0.1em 0.3em 0 0;
+  color: rgb(var(--classic-gold));
+}
+
+/* Sparkles */
+.sparkle {
+  position: absolute;
+  width: 6px; height: 6px; border-radius: 9999px;
+  background: linear-gradient(45deg, #f59e0b, #10b981);
+  filter: blur(0.5px);
+  animation: float 10s infinite ease-in-out;
+  opacity: 0.7;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-8px) translateX(6px); }
+  50% { transform: translateY(6px) translateX(-4px); }
+  75% { transform: translateY(-4px) translateX(4px); }
+}
+
+/* ELINITY badge base style (shared) */
+.elinity-badge {
+  @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 text-white text-xs tracking-wide shadow-lg border border-white/20;
+}
+.elinity-dot {
+  @apply w-2.5 h-2.5 rounded-full bg-gradient-to-br from-pink-500 to-amber-400 animate-pulse;
+}
+
+/* Larger, more visible brand badge */
+.elinity-badge--xl {
+  @apply px-4 py-2 text-sm sm:text-base shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)];
+}
+.elinity-badge--glow {
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.12), 0 12px 40px -16px rgba(255,99,71,0.55);
+}
+.theme-classic .elinity-badge {
+  @apply bg-white/90 text-[rgb(var(--classic-ink))] border border-[rgba(0,0,0,0.1)];
+}
+.theme-classic .elinity-dot {
+  background: linear-gradient(135deg, rgba(var(--classic-gold),1), rgba(var(--classic-gold),0.6));
+}
+
+.brand-subtitle {
+  @apply text-sm sm:text-base text-slate-700/80;
+}

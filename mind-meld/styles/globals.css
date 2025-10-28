@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next { height: 100%; }
+
+body {
+  @apply bg-darkbg text-slate-100 font-poppins;
+  background-image:
+    radial-gradient(1000px 500px at 10% -10%, rgba(124,58,237,0.25), transparent 70%),
+    radial-gradient(1000px 500px at 90% 0%, rgba(34,211,238,0.20), transparent 70%),
+    radial-gradient(700px 400px at 50% 100%, rgba(251,146,60,0.16), transparent 60%);
+  background-attachment: fixed;
+}
+
+.card { @apply bg-white/5 backdrop-blur rounded-xl border border-white/10 shadow-lg; }
+.btn { @apply px-4 py-2 rounded-lg border border-white/10 bg-white/10 hover:bg-white/20; }
+
+/* ELINITY badge */
+.elinity-badge { position: fixed; top: 16px; right: 16px; z-index: 50; display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 9999px; background: linear-gradient(90deg, rgba(124,58,237,0.2), rgba(34,211,238,0.2)); border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+.elinity-glow { width: 8px; height: 8px; border-radius: 9999px; background: radial-gradient(circle, #7C3AED, #22D3EE); animation: pulseGlow 1.8s ease-in-out infinite; }
+.elinity-text { font-weight: 700; letter-spacing: 0.08em; font-size: 12px; }
+@keyframes pulseGlow { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px #7C3AED); } 50% { transform: scale(1.35); filter: drop-shadow(0 0 6px #22D3EE); } }
+
+/* effects */
+.flipIn { animation: flipIn 500ms ease-out; }
+.flash { animation: flash 800ms ease-in-out; }

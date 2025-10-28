@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #__next { height: 100%; }
+  body { @apply text-white bg-stage-800; }
+  * { -webkit-tap-highlight-color: transparent; }
+  ::selection { background-color: rgba(242,195,91,.35); color: #fff; }
+}
+
+@layer components {
+  /* Distinct stage background (static, non-distracting) */
+  .app-bg {
+    @apply fixed inset-0 -z-20 bg-stage-900 bg-stage-gradient bg-stage-vignette bg-velvet-texture bg-no-repeat;
+    background-size: cover, 100% 100%, 100% 100%, 200px 200px;
+    background-blend-mode: normal, screen, multiply, overlay;
+  }
+
+  .container { @apply mx-auto max-w-3xl px-5; }
+  .header { @apply sticky top-0 z-40 backdrop-blur bg-stage-800/70 border-b border-gold-400/30; }
+  .brand { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-velvet-500/20 border border-gold-400/30 text-sm shadow-[0_0_12px_rgba(242,195,91,0.25)]; }
+  .title { @apply text-3xl md:text-4xl font-semibold; }
+
+  .card { @apply rounded-2xl border border-white/10 bg-stage-700/60 backdrop-blur shadow-soft; }
+  .card-inner { @apply p-5; }
+
+  .marquee { @apply flex items-center gap-2 rounded-xl px-3 py-2 border border-gold-400/30 shadow-marquee bg-velvet-500/30; }
+  .ribbon { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-velvet-500/30 border border-gold-400/30 text-sm; }
+
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-semibold transition; }
+  .btn-primary { @apply text-stage-900 bg-gradient-to-r from-gold-400 to-velvet-400 shadow-marquee; }
+  .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.05); }
+  .btn-secondary { @apply text-white bg-velvet-500/30 border border-gold-400/30; }
+  .btn-secondary:hover { @apply bg-velvet-500/40; }
+
+  .input { @apply px-3 py-2 rounded-lg border border-white/10 bg-stage-700/60 text-white placeholder-white/60; }
+  .badge { @apply inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-velvet-500/25 text-white border border-gold-400/30 text-xs; }
+
+  .progress { @apply mt-2 h-2 rounded-full overflow-hidden bg-stage-700/80; }
+  .progress-bar { @apply h-full bg-gold-400; }
+}

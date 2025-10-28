@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next { height: 100%; }
+
+body {
+  @apply bg-parchment text-ink font-serif antialiased;
+  background-image:
+    radial-gradient(1200px 600px at 10% -10%, rgba(176,137,104,0.10), transparent 70%),
+    radial-gradient(1000px 500px at 90% 0%, rgba(232,93,4,0.08), transparent 70%),
+    radial-gradient(700px 400px at 50% 100%, rgba(75,85,99,0.08), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Distinct parchment UI system */
+.panel { @apply rounded-2xl border border-brass/30 bg-white/50 shadow-xl; backdrop-filter: blur(6px); }
+.banner { @apply rounded-2xl border border-brass/40 bg-gradient-to-r from-brass/30 to-ember/20 shadow-xl; }
+.frame { @apply border border-brass/40 rounded-xl; box-shadow: inset 0 0 0 1px rgba(176,137,104,0.25); }
+.btn { @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-ink/10 bg-white/70 hover:bg-white transition-colors text-ink; }
+.btn-ember { @apply bg-ember text-white border-ember hover:opacity-95 font-semibold; }
+.btn-ink { @apply bg-ink text-white border-ink hover:bg-soot; }
+.tab { @apply px-4 py-2 rounded-full border border-brass/40 bg-white/60 hover:bg-white text-ink; }
+.input { @apply w-full px-3 py-2 rounded-lg bg-white/70 border border-brass/40 outline-none focus:border-ember; }
+.textarea { @apply w-full p-3 rounded-lg bg-white/70 border border-brass/40 outline-none focus:border-ember min-h-[120px]; }
+.heading { @apply text-ink font-serif; }
+.subtle { @apply text-slate/80; }
+
+/* Brand badge remains consistent across suite */
+.elinity-badge { position: fixed; top: 16px; right: 16px; z-index: 50; display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 9999px; background: linear-gradient(90deg, rgba(176,137,104,0.25), rgba(232,93,4,0.25)); border: 1px solid rgba(0,0,0,0.12); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+.elinity-glow { width: 8px; height: 8px; border-radius: 9999px; background: radial-gradient(circle, #B08968, #E85D04); animation: pulseGlow 1.8s ease-in-out infinite; }
+.elinity-text { font-weight: 800; letter-spacing: 0.08em; font-size: 12px; color: #111827; }
+@keyframes pulseGlow { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px #B08968);} 50% { transform: scale(1.35); filter: drop-shadow(0 0 6px #E85D04);} }

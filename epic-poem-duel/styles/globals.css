@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next { height: 100%; }
+body{
+  @apply antialiased text-ink font-sans;
+  background:
+    radial-gradient(120% 120% at 80% -20%, rgba(167,139,250,0.25), transparent 60%),
+    radial-gradient(100% 100% at -10% 120%, rgba(110,231,249,0.18), transparent 60%),
+    linear-gradient(180deg, #0b1220, #0f172a 40%, #111827);
+}
+
+.container{ @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+/* Glass panels */
+.panel{ @apply rounded-2xl border border-white/10 bg-panel backdrop-blur-xl p-5 sm:p-6 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]; }
+.panel-ring{ position:relative; }
+.panel-ring::after{ content:""; position:absolute; inset:-1px; border-radius:1.25rem; padding:1px; background:linear-gradient(135deg, rgba(110,231,249,0.5), rgba(167,139,250,0.4), rgba(244,114,182,0.35)); mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none; }
+
+/* Controls */
+.btn{ @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-semibold transition-all duration-150 active:scale-95; }
+.btn-primary{ @apply btn text-white; background: linear-gradient(135deg, #6ee7f9, #a78bfa 60%, #f472b6); box-shadow: 0 14px 34px -16px rgba(99,102,241,0.6); }
+.btn-ghost{ @apply btn text-ink border border-white/15 hover:bg-white/5; }
+.btn-soft{ @apply btn text-ink bg-white/10 hover:bg-white/15 border border-white/10; }
+.input{ @apply w-full px-3 py-2 rounded-xl border border-white/15 bg-white/5 placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-glow text-ink; }
+.textarea{ @apply input min-h-[120px]; }
+.badge{ @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 border border-white/10 text-ink; }
+
+/* Title and subtitle */
+.title{ @apply font-display text-3xl sm:text-4xl; background: linear-gradient(90deg, #e2e8f0, #a78bfa 60%, #6ee7f9); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.subtitle{ @apply text-white/70; }
+
+/* Poem lines as bubbles */
+.line{ animation: ink 380ms ease both; }
+@keyframes ink { from{ opacity:0; transform: translateY(6px) } to{ opacity:1; transform: translateY(0) } }
+.bubble{ @apply inline-block max-w-[85%] px-4 py-2 rounded-2xl border border-white/10 bg-white/5; }
+.player{ @apply self-end text-right; }
+.player .bubble{ @apply bg-gradient-to-br from-white/10 to-white/5; }
+.ai{ @apply self-start text-left opacity-95; }
+.ai .bubble{ background: radial-gradient(120% 120% at 10% -10%, rgba(167,139,250,0.25), transparent 40%), radial-gradient(120% 120% at 120% 120%, rgba(110,231,249,0.12), transparent 40%), rgba(255,255,255,0.06); }
+
+/* Scroll area */
+.canvas{ @apply max-h-[420px] overflow-auto pr-1 flex flex-col gap-2; }
+
+/* Stepper */
+.steps{ @apply flex items-center gap-2 text-xs text-white/60; }
+.step{ @apply h-6 px-2 rounded-full border border-white/10 bg-white/5; }
+.step.active{ @apply text-white bg-white/10; }
+
+/* Rules modal */
+.modal{ position:fixed; inset:0; background: rgba(2,6,23,0.6); display:grid; place-items:center; z-index:40; padding: 1rem; }
+.modal-card{ @apply panel panel-ring max-w-xl w-full; }

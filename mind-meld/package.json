@@ -1,0 +1,21 @@
+{
+  "name": "mind-meld",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3025",
+    "build": "next build",
+    "start": "next start -p 3025"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "next": "14.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.10"
+  }
+}

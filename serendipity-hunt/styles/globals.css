@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next {
+  height: 100%;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* Treasure map theme - warm parchment colors */
+body {
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(217,119,6,0.15), transparent 10%),
+              radial-gradient(900px 500px at 90% 90%, rgba(161,98,7,0.12), transparent 10%),
+              linear-gradient(180deg, #d97706 0%, #92400e 100%);
+}
+
+.glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px) saturate(120%); border: 1px solid rgba(255,255,255,0.1) }
+.glass-strong { background: rgba(255,255,255,0.12); backdrop-filter: blur(12px) saturate(130%); border: 1px solid rgba(255,255,255,0.16) }
+.card-shadow { box-shadow: 0 6px 20px rgba(11,11,15,0.45) }
+
+/* Parchment card */
+.parchment { background: linear-gradient(135deg, rgba(254,243,199,0.15), rgba(253,224,71,0.1)); border: 2px solid rgba(217,119,6,0.3); box-shadow: 0 4px 12px rgba(120,53,15,0.3); position: relative }
+.parchment::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(45deg, transparent 48%, rgba(217,119,6,0.1) 49%, rgba(217,119,6,0.1) 51%, transparent 52%); pointer-events: none }
+
+/* Clue box */
+.clue-box { background: linear-gradient(135deg, rgba(251,191,36,0.2), rgba(245,158,11,0.15)); border: 2px dashed rgba(217,119,6,0.4); padding: 24px; border-radius: 16px; text-align: center; font-style: italic; position: relative }
+.clue-box::before { content: '🔍'; position: absolute; top: -16px; left: 50%; transform: translateX(-50%); font-size: 2rem; background: rgba(217,119,6,0.8); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(217,119,6,0.4) }
+
+/* Gem/Treasure */
+.gem { width: 80px; height: 80px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: transform 300ms ease, box-shadow 300ms ease; position: relative; overflow: hidden }
+.gem::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent); pointer-events: none }
+.gem:hover { transform: translateY(-8px) scale(1.1); box-shadow: 0 12px 32px rgba(217,119,6,0.5) }
+.gem.unlocked { animation: gemPulse 2s ease-in-out infinite }
+
+@keyframes gemPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 4px 12px rgba(217,119,6,0.3); }
+  50% { transform: scale(1.05); box-shadow: 0 8px 24px rgba(217,119,6,0.6); }
+}
+
+/* Gem categories */
+.gem-hobbies { background: linear-gradient(135deg, #10b981, #059669) }
+.gem-habits { background: linear-gradient(135deg, #8b5cf6, #7c3aed) }
+.gem-memories { background: linear-gradient(135deg, #f59e0b, #d97706) }
+.gem-quirks { background: linear-gradient(135deg, #ec4899, #db2777) }
+
+/* Treasure chest */
+.treasure-chest { background: linear-gradient(135deg, rgba(217,119,6,0.2), rgba(161,98,7,0.15)); border: 3px solid rgba(217,119,6,0.5); padding: 24px; border-radius: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 16px; min-height: 200px }
+
+/* Reveal animation */
+.reveal-animation { animation: treasureReveal 0.8s ease-out forwards }
+
+@keyframes treasureReveal {
+  0% { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(5deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+/* Mystery shimmer */
+.mystery { position: relative; overflow: hidden }
+.mystery::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(251,191,36,0.3), transparent); animation: shimmer 2s infinite }
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Connection line */
+.connection-line { height: 2px; background: linear-gradient(90deg, transparent, #fbbf24, transparent); animation: lineGlow 1.5s ease-in-out infinite }
+
+@keyframes lineGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Buttons */
+.btn-primary { background: linear-gradient(135deg, #d97706, #92400e); color: #fff; transition: transform 160ms ease, box-shadow 160ms ease }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(217,119,6,0.4) }
+.btn-secondary { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.16); transition: all 160ms ease }
+.btn-secondary:hover { background: rgba(255,255,255,0.14) }
+.btn-guess { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #000; font-weight: 700; transition: all 160ms ease }
+.btn-guess:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(251,191,36,0.4) }
+
+/* Input/Textarea */
+textarea, input { color: #fff; background: rgba(0,0,0,0.28); caret-color: #fff; border: 1px solid rgba(217,119,6,0.3) }
+textarea::placeholder, input::placeholder { color: rgba(255,255,255,0.55) }
+textarea:focus, input:focus { outline: none; box-shadow: 0 8px 28px rgba(217,119,6,0.3); border: 1px solid rgba(217,119,6,0.5) }
+
+/* Player badge */
+.player-badge { background: rgba(217,119,6,0.2); border: 1px solid rgba(217,119,6,0.4); padding: 8px 16px; border-radius: 9999px; display: inline-block; font-weight: 600 }
+
+/* Summary box */
+.summary-box { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.1)); border: 2px solid rgba(16,185,129,0.3); padding: 20px; border-radius: 16px; margin-top: 16px }
+
+::-webkit-scrollbar { width: 8px }
+::-webkit-scrollbar-thumb { background: rgba(217,119,6,0.3); border-radius: 9999px }
+
+/* Elinity brand badge */
+.elinity-badge{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #92400e, #b45309);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 0 2px rgba(217,119,6,0.2);
+  z-index: 9999;
+  animation: badge-glow 3s ease-in-out infinite;
+}
+.elinity-badge::before{ content:'⚡'; margin-right:6px; animation: pulse-badge 2s ease-in-out infinite; }
+@keyframes badge-glow{
+  0%,100%{ box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 0 2px rgba(217,119,6,0.4), 0 0 24px rgba(251,191,36,0.3); }
+  50%{ box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 0 2px rgba(245,158,11,0.4), 0 0 24px rgba(217,119,6,0.35); }
+}
+@keyframes pulse-badge{ 0%,100%{ transform: scale(1);} 50%{ transform: scale(1.2);} }

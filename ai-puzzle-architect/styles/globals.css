@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #__next { height: 100%; }
+  body { @apply text-white bg-puzzle-100; }
+  * { -webkit-tap-highlight-color: transparent; }
+  ::selection { background-color: rgba(34,211,238,.35); color: #fff; }
+}
+
+@layer components {
+  .app-bg { @apply fixed inset-0 -z-10 bg-arcade bg-[length:200%_200%] animate-gradient; }
+  .app-grid { @apply fixed inset-0 -z-10 bg-grid opacity-20; background-size: 40px 40px; }
+
+  .container { @apply mx-auto max-w-5xl px-5; }
+  .header { @apply sticky top-0 z-40 backdrop-blur bg-puzzle-100/70 border-b border-white/10; }
+  .brand { @apply font-semibold text-white drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]; }
+  .card { @apply rounded-2xl border border-white/10 bg-white/10 backdrop-blur shadow-soft; }
+  .card-inner { @apply p-5; }
+  .ribbon { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-sm; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-semibold transition will-change-transform; }
+  .btn-lg { @apply px-5 py-3 text-base; }
+  .btn-primary { @apply text-slate-900 bg-gradient-to-r from-neon-cyan via-neon-magenta to-neon-amber shadow-glow; background-size:200%_200%; animation: gradient 16s ease infinite; }
+  /* Use transform instead of negative utility in @apply to satisfy CSS linter */
+  .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.05); }
+  .btn-secondary { @apply text-white bg-white/10 border border-white/15; }
+  .btn-secondary:hover { @apply bg-white/15; }
+  .input { @apply px-3 py-2 rounded-lg border border-white/10 bg-white/10 text-white placeholder-white/60; }
+  .select { @apply input pr-10 appearance-none; background-repeat:no-repeat; background-position:right .75rem center; background-size:16px 16px; }
+  .select { background-image:url("data:image/svg+xml;utf8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' viewBox='0 0 16 16'><path d='M3.2 5.6l4.8 4.8 4.8-4.8' stroke='white' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>"); }
+  select.select option { background-color:#0f1220; color:#fff; }
+  select.select option:checked { background-color: rgba(232,121,249,.35); }
+  .slider { @apply w-full; }
+  .label { @apply text-sm font-medium text-white/80; }
+  .badge { @apply inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/10 text-white border border-white/15 text-xs; }
+  .score-badge { @apply inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-neon-cyan/20 text-neon-cyan border border-neon-cyan/40 text-xs; }
+}

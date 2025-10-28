@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+
+html, body, #__next { height: 100%; }
+body { @apply bg-parchment text-rune font-body; }
+
+/* Panels */
+.panel { @apply bg-black/20 border border-rune/20 rounded-xl shadow-glow; }
+.btn { @apply px-3 py-2 rounded-lg border border-rune/30 text-rune hover:bg-rune/10 active:bg-rune/20 transition; }
+.btn-primary { @apply px-3 py-2 rounded-lg bg-ember/90 text-black font-semibold hover:bg-ember active:bg-ember/80; }
+.input { @apply w-full px-3 py-2 rounded-lg bg-black/30 border border-rune/20 placeholder:text-rune/50 text-rune; }
+.badge { @apply px-2 py-1 rounded-lg text-xs bg-black/30 border border-rune/30; }
+
+/* Runes & parchment accents */
+.rune-ring {
+  background: radial-gradient(closest-side, rgba(200,164,107,0.25), rgba(200,164,107,0.1), transparent 70%),
+              conic-gradient(from 0deg, rgba(200,164,107,0.25), rgba(255,255,255,0.05), rgba(200,164,107,0.25));
+  filter: drop-shadow(0 0 20px rgba(200,164,107,0.2));
+}
+.parchment {
+  @apply bg-parchment bg-parchment text-rune;
+}
+
+.parchment-text {
+  @apply text-rune; 
+}
+
+h1.title { @apply font-mystic text-3xl md:text-4xl text-rune drop-shadow; }
+.sub { @apply text-rune/80; }
+
+/* Parchment-like scroll text box */
+.scroll {
+  @apply panel p-4; 
+  background: linear-gradient(180deg, rgba(200,164,107,0.06), rgba(0,0,0,0.15));
+}

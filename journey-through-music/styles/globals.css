@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* App background layers */
+:root {
+	--bg-ink: #0b1220;
+}
+
+html, body, #__next { height: 100%; }
+body { background: #0b1220; color: #e5e7eb; }
+
+.app-bg {
+	position: fixed;
+	inset: 0;
+	background:
+		radial-gradient(900px 600px at 80% 10%, rgba(125,211,252,.10), transparent 60%),
+		radial-gradient(1100px 700px at 40% -10%, rgba(165,180,252,.12), transparent 60%),
+		linear-gradient(180deg, rgba(15,23,42,1) 0%, rgba(11,18,32,1) 60%, rgba(12,18,30,1) 100%);
+	pointer-events: none;
+}
+
+.dot-overlay {
+	position: fixed;
+	inset: 0;
+	background-image: radial-gradient(1px 1px at 8px 8px, rgba(255,255,255,.08) 1px, transparent 1px);
+	background-size: 18px 18px;
+	mask-image: radial-gradient(60% 60% at 50% 40%, rgba(0,0,0,1), transparent 80%);
+	opacity: .5;
+	pointer-events: none;
+}
+
+/* Gentle moving aurora veil for subtle motion */
+.aurora-veil {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	background:
+		radial-gradient(60% 50% at -10% 10%, rgba(125,211,252,.06), transparent 60%),
+		radial-gradient(50% 40% at 110% 20%, rgba(165,180,252,.07), transparent 60%);
+	animation: driftDiagonal 28s linear infinite;
+}
+
+@keyframes driftDiagonal {
+	0% { transform: translate3d(0,0,0); }
+	50% { transform: translate3d(-2%, 2%, 0); }
+	100% { transform: translate3d(0,0,0); }
+}
+
+.panel {
+	@apply bg-slate-900/60 backdrop-blur-md rounded-xl border border-white/10 shadow-card;
+}
+
+.btn {
+	@apply inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 transition-colors shadow-glow;
+}
+
+.brand {
+	background: linear-gradient(90deg, #7dd3fc, #a5b4fc, #fde68a);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.pulse-dot {
+	width: 8px; height: 8px; border-radius: 50%;
+	box-shadow: 0 0 0 0 rgba(125,211,252,.8);
+	animation: pulseRing 2.2s infinite;
+}
+
+@keyframes pulseRing {
+	0% { box-shadow: 0 0 0 0 rgba(125,211,252,.6); }
+	70% { box-shadow: 0 0 0 10px rgba(125,211,252,0); }
+	100% { box-shadow: 0 0 0 0 rgba(125,211,252,0); }
+}
+
+.glass {
+	@apply bg-white/5 backdrop-blur-lg border border-white/10 rounded-xl;
+}
+
+/* Text-only brand with backlight and mirrored reflection */
+.brand-mark { position: relative; display: inline-block; line-height: 1; }
+.brand-mark::before {
+	content: '';
+	position: absolute; inset: -8px -10px -14px -10px; z-index: -1;
+	background:
+		radial-gradient(120px 80px at 20% 10%, rgba(125,211,252,.20), transparent 60%),
+		radial-gradient(140px 90px at 80% 20%, rgba(165,180,252,.18), transparent 60%),
+		radial-gradient(160px 90px at 50% 100%, rgba(253,230,138,.10), transparent 70%);
+	filter: blur(10px);
+	border-radius: 14px;
+	animation: shimmer 3.2s ease-in-out infinite;
+}
+.brand-text {
+	font-weight: 700;
+	font-size: 1.1rem;
+	background: linear-gradient(90deg, #e2e8f0, #ffffff);
+	-webkit-background-clip: text; background-clip: text; color: transparent;
+	text-shadow: 0 1px 0 rgba(255,255,255,.2);
+}
+.brand-reflection {
+	position: absolute; left: 0; right: 0; top: 100%;
+	transform: scaleY(-1);
+	color: rgba(255,255,255,.18);
+	filter: blur(0.4px);
+	mask-image: linear-gradient(to bottom, rgba(0,0,0,.6), transparent);
+	-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.6), transparent);
+	pointer-events: none;
+}

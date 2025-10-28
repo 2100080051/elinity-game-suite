@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #__next { height: 100%; }
+  body { @apply bg-ink-900 text-white; }
+}
+
+@layer components {
+  .app-bg { @apply fixed inset-0 -z-10 bg-softField; }
+  .app-aurora { position: fixed; inset: -25% -10% auto -10%; height: 55vh; z-index: -9; pointer-events: none; filter: blur(30px) saturate(1.05) opacity(.55); background: radial-gradient(40% 60% at 20% 30%, rgba(197,181,255,.32), transparent 60%), radial-gradient(35% 45% at 75% 25%, rgba(165,243,252,.25), transparent 60%), radial-gradient(50% 60% at 50% 10%, rgba(255,205,211,.20), transparent 60%); animation: floaty 16s ease-in-out infinite; mask-image: linear-gradient(to bottom, black, transparent 70%); }
+  .app-dots { position: fixed; inset: 0; z-index: -8; pointer-events: none; background-image: theme('backgroundImage.dotGrid'); background-size: 16px 16px; opacity: .25; }
+  .container { @apply mx-auto max-w-6xl px-6; }
+  .header { @apply sticky top-0 z-40 backdrop-blur bg-ink-900/70 border-b border-white/10; }
+  .brand { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-sm shadow-glow; }
+  .brand-mark { background: linear-gradient(90deg, #a5f3fc, #ddd6fe, #fecdd3); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: 0 0 20px rgba(255,255,255,.06); }
+
+  .panel { @apply rounded-2xl bg-white/5 border border-white/10 shadow-card; backdrop-filter: saturate(120%) blur(2px); }
+  .panel-inner { @apply p-4 md:p-5; }
+
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-semibold transition relative overflow-hidden; }
+  .btn-primary { @apply text-ink-900 bg-gradient-to-r from-sky-100 to-cotton-200 shadow-glow; }
+  .btn-secondary { @apply text-white/90 bg-white/10 border border-white/15; }
+  .btn-ghost { @apply text-white/80 hover:text-white; }
+  .btn::after { content: ''; position: absolute; inset: 0; background: radial-gradient(180px 180px at var(--x,50%) var(--y,50%), rgba(255,255,255,.35), transparent 40%); opacity: 0; transition: opacity .25s; }
+  .btn:hover::after { opacity: .25; }
+
+  .bullet { @apply rounded-xl border border-white/10 bg-white/5 p-3 hover:bg-white/10 transition; }
+  .bullet.bad { @apply border-rose-400/50 bg-rose-400/10; }
+  .vote-btn { @apply mt-2 w-full rounded-lg bg-white/10 hover:bg-white/15 border border-white/15 py-2 text-sm; }
+
+  .stage { animation: slideIn .38s ease-out both; }
+}
+
+/* Confetti overlay */
+.confetti { position: fixed; inset: 0; pointer-events: none; z-index: 60; overflow: hidden; }
+.confetti span { position: absolute; top: -10vh; width: 8px; height: 14px; border-radius: 2px; opacity: .9; animation: confettiFall 2.2s linear forwards; }
+@keyframes confettiFall { to { transform: translateY(120vh) rotate(540deg); opacity: .8; } }

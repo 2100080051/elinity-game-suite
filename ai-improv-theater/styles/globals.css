@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --bg1: 11, 2, 32; /* deep theater */
+  --bg2: 30, 6, 64; /* richer purple */
+}
+
+html, body, #__next { height: 100%; }
+body{
+  @apply antialiased text-white bg-gradient-to-br from-[rgba(var(--bg1),1)] to-[rgba(var(--bg2),1)];
+}
+
+.container{ @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+/* Brand */
+.elinity-badge{ @apply inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white text-sm tracking-wide shadow-lg border border-white/20; }
+.elinity-dot{ @apply w-2.5 h-2.5 rounded-full bg-gradient-to-br from-[#ff2d8d] to-[#f6c453] animate-pulse; }
+.elinity-badge--xl{ @apply text-base px-5 py-2.5; }
+.elinity-badge--glow{ box-shadow: 0 0 0 2px rgba(255,255,255,0.08), 0 10px 30px -10px rgba(255,45,141,0.6); }
+
+/* Components */
+.card{ @apply bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-5 sm:p-6 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.6)]; }
+.btn{ @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-semibold transition-transform duration-150 active:scale-95; }
+.btn-primary{ @apply btn text-white bg-gradient-to-r from-[#ff2d8d] to-[#f6c453] hover:from-[#ff5aa6] hover:to-[#ffd37b]; }
+.btn-outline{ @apply btn text-white/90 border border-white/30 hover:bg-white/10; }
+.input{ @apply w-full px-3 py-2 rounded-xl border border-white/20 bg-white/10 placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-[#ff2d8d]; }
+.textarea{ @apply input min-h-[120px]; }
+.badge{ @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/10 border border-white/20; }
+.kbd{ @apply px-2 py-1 rounded-md border border-white/30 bg-white/10 text-xs font-mono; }
+
+/* Quick action button glow */
+.btn-quick{ position: relative; }
+.btn-quick::after{
+  content:''; position:absolute; inset: -2px; border-radius: 0.85rem; opacity: 0;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(255,45,141,0.35), transparent 60%),
+              radial-gradient(60% 60% at 30% 30%, rgba(246,196,83,0.25), transparent 60%);
+  transition: opacity 180ms ease;
+  pointer-events: none;
+}
+.btn-quick:hover::after, .btn-quick:focus-visible::after{ opacity: 1; }
+.btn-quick:active{ transform: translateY(1px) scale(0.99); }
+
+/* Select dropdown fix (Windows/Chromium): dark menu and white text */
+select.input{
+  background-color: rgba(255,255,255,0.08);
+  color: #fff;
+  border-color: rgba(255,255,255,0.3);
+}
+select.input option{
+  background-color: #1a1033; /* deep purple */
+  color: #fff;
+}
+select.input optgroup{
+  background-color: #1a1033;
+  color: #ffda85;
+}
+
+/* Custom dropdown removed: using native select with dark theme styles above */
+
+/* Chat */
+.bubble{ @apply max-w-[80%] px-4 py-2 rounded-2xl shadow border; animation: pop 300ms ease both; }
+.bubble-me{ @apply bubble bg-[#1f0b3f]/70 border-[#ff2d8d]/40; }
+.bubble-ai{ @apply bubble bg-white/10 border-white/20 italic; }
+@keyframes pop { from { transform: scale(0.98); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+
+/* Spotlight title animation */
+.spotlight{ position: relative; overflow: hidden; }
+.spotlight::after{
+  content:''; position:absolute; inset:-40% -10% auto -10%; height: 60%;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(255,255,255,0.25), transparent 60%);
+  filter: blur(20px); animation: sweep 5s ease-in-out infinite;
+}
+@keyframes sweep { 0%,100%{ transform: translateX(-20%) } 50%{ transform: translateX(20%) } }
+
+/* Background gradient cycle */
+@media (prefers-reduced-motion: no-preference){
+  body{ animation: hue 24s ease-in-out infinite; }
+}
+@keyframes hue { 0%,100%{ filter: hue-rotate(0deg)} 50%{ filter: hue-rotate(10deg)} }
+
+/* Neon card frame for hero */
+.card-neon{ position: relative; }
+.card-neon::before{
+  content:''; position:absolute; inset:-1px; border-radius: 1rem; padding:1px;
+  background: linear-gradient(90deg, #ff2d8d, #f6c453, #6d28d9);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none;
+}
+
+/* Scene clapper overlay */
+.clapper-overlay{ position: fixed; inset: 0; z-index: 50; display:flex; align-items:center; justify-content:center; background: rgba(11,2,32,0.65); backdrop-filter: blur(4px); }
+.clapper{ font-size: 72px; line-height: 1; filter: drop-shadow(0 8px 20px rgba(0,0,0,0.6)); animation: clap 700ms ease forwards; }
+@keyframes clap{ 0%{ transform: scale(0.9) rotate(-6deg); opacity: 0 } 50%{ transform: scale(1.05) rotate(0deg); opacity: 1 } 100%{ transform: scale(1) rotate(0deg); opacity: 1 } }
+
+/* Floating theater mask watermark */
+.mask-watermark{ position: fixed; right: -40px; bottom: -10px; z-index: 0; pointer-events: none; opacity: 0.08; filter: blur(0.2px); }
+.mask-watermark .mask{ font-size: 200px; animation: floaty 18s ease-in-out infinite; }
+@keyframes floaty { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-12px) } }
+
+/* Subtle text glow for hero */
+.text-glow{ text-shadow: 0 2px 20px rgba(255,45,141,0.35), 0 1px 8px rgba(246,196,83,0.25); }

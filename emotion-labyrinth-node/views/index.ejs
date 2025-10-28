@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app-header">
+        <div class="brand">◆ Elinity • Emotion Labyrinth</div>
+        <div class="tag">Explore your inner world with kindness.</div>
+      </header>
+      <main class="container">
+        <div id="ambient"></div>
+        <div id="app"></div>
+      </main>
+    </div>
+
+    <template id="home-tpl">
+      <div class="center">
+        <h1 class="title">🌿 Emotion Labyrinth</h1>
+        <p class="subtitle">A journey through the feelings that shape your world.</p>
+        <div class="btn-row">
+          <button class="btn btn-primary" data-action="begin">🧭 Start Journey</button>
+          <button class="btn btn-ghost" data-action="continue">⏳ Continue</button>
+          <button class="btn btn-ghost" data-action="random">🎲 Random</button>
+          <button class="btn btn-ghost" data-action="about">📖 About</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="setup-tpl">
+      <div class="card max">
+        <div class="heading">Begin your journey</div>
+        <div class="grid">
+          <div>
+            <div class="label">Mode</div>
+            <div class="row">
+              <button class="btn btn-ghost" data-mode="solo">Solo</button>
+              <button class="btn btn-ghost" data-mode="group">Group</button>
+            </div>
+          </div>
+          <div>
+            <div class="label">Starting Emotion</div>
+            <select class="input" data-select="emotion">
+              <option value="joy">Joy</option>
+              <option value="calm">Calm</option>
+              <option value="fear">Fear</option>
+              <option value="gratitude" selected>Gratitude</option>
+              <option value="nostalgia">Nostalgia</option>
+              <option value="wonder">Wonder</option>
+              <option value="random">Let AI surprise me</option>
+            </select>
+          </div>
+        </div>
+        <div class="center mt">
+          <button class="btn btn-primary" data-action="enter">Enter the Labyrinth</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="room-tpl">
+      <div class="layout">
+        <div class="card">
+          <div class="room-title"><span class="orb"></span><span data-bind="room"></span></div>
+          <div class="room-desc" data-bind="desc"></div>
+          <div class="prompt" data-bind="prompt"></div>
+          <div class="reflect">
+            <div class="label">Share what you feel…</div>
+            <textarea class="input" data-input="reflection" placeholder="Write your reflection..."></textarea>
+            <div class="row space">
+              <div class="emoji">
+                <button>😊</button><button>😢</button><button>😌</button><button>💭</button><button>🌸</button>
+              </div>
+              <button class="btn btn-primary" data-action="submit">Submit</button>
+            </div>
+          </div>
+          <div class="nav">
+            <div class="label">Choose your next path…</div>
+            <div class="grid3" data-bind="doors"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="label">💎 Emotional Inventory</div>
+          <div class="list" data-bind="artifacts"></div>
+        </div>
+      </div>
+    </template>
+
+    <template id="summary-tpl">
+      <div class="card max center">
+        <div class="heading">🌙 Journey’s Reflection</div>
+        <div class="summary" data-bind="summary"></div>
+        <div class="btn-row">
+          <button class="btn btn-ghost" data-action="copy">Copy</button>
+          <button class="btn btn-primary" data-action="restart">Begin New Labyrinth</button>
+        </div>
+      </div>
+    </template>
+
+    <div id="modal" class="modal hidden">
+      <div class="card max">
+        <div class="heading">About Emotion Labyrinth</div>
+        <p>Emotion Labyrinth is a guided emotional exploration — part game, part meditation, part art journey. Wander symbolic rooms, reflect, and receive poetic artifacts that honor your feelings.</p>
+        <div class="right mt">
+          <button class="btn btn-ghost" data-action="close">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const ROOMS = {
+        gratitude: 'The Garden of Gratitude',
+        joy: 'The Fountain of Joy',
+        calm: 'The Chamber of Calm',
+        courage: 'The Hall of Courage',
+        regret: 'The Garden of Regret',
+        fear: 'The Cavern of Fear',
+        nostalgia: 'The Moonlit Archive',
+        wonder: 'The Star Hall',
+      };
+
+      const state = { stage:'home', emotion:'gratitude', desc:'', prompt:'', visited:[], artifacts:[] };
+
+      function save(){ localStorage.setItem('el_session', JSON.stringify(state)); }
+      function load(){ const s = localStorage.getItem('el_session'); if(!s) return false; try{ Object.assign(state, JSON.parse(s)); return true; }catch{ return false; } }
+
+      async function api(action, payload){
+        try{
+          const r = await fetch('/api/labyrinth', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action, payload }) });
+          return await r.json();
+        }catch(e){ console.error(e); return null; }
+      }
+
+      function render(){
+        const root = document.getElementById('app');
+        const modal = document.getElementById('modal');
+        function show(tpl){ root.innerHTML = document.getElementById(tpl).innerHTML; }
+
+        if(state.stage==='home'){
+          show('home-tpl');
+          root.querySelector('[data-action="begin"]').onclick = ()=> { state.stage='setup'; render(); };
+          root.querySelector('[data-action="continue"]').onclick = ()=> { if(load()){ state.stage = state.stage||'room'; render(); } };
+          root.querySelector('[data-action="random"]').onclick = ()=> enter('joy');
+          root.querySelector('[data-action="about"]').onclick = ()=> { modal.classList.remove('hidden'); };
+          modal.querySelector('[data-action="close"]').onclick = ()=> modal.classList.add('hidden');
+          return;
+        }
+        if(state.stage==='setup'){
+          show('setup-tpl');
+          root.querySelector('[data-action="enter"]').onclick = async (ev)=>{
+            withLoading(ev.target, async ()=>{
+              const emotion = root.querySelector('[data-select="emotion"]').value;
+              await enter(emotion==='random'? 'joy': emotion);
+            });
+          };
+          return;
+        }
+        if(state.stage==='room'){
+          show('room-tpl');
+          root.querySelector('[data-bind="room"]').textContent = ROOMS[state.emotion]||state.emotion;
+          root.querySelector('[data-bind="desc"]').textContent = state.desc;
+          root.querySelector('[data-bind="prompt"]').textContent = state.prompt;
+          // artifacts
+          const list = root.querySelector('[data-bind="artifacts"]');
+          if(state.artifacts.length===0){ list.innerHTML = '<div class="muted">No artifacts yet. Submit a reflection to receive a symbolic gift.</div>'; }
+          else { list.innerHTML = state.artifacts.map(a=>`<div class="artifact"><div>${a.symbol||a.icon||''} ${a.name||''}</div><div class="muted">Born of ${a.emotion||''}</div></div>`).join(''); }
+          // doors
+          const doorsEl = root.querySelector('[data-bind="doors"]');
+          const doors = [ {key:'calm', label:'→ Chamber of Calm'}, {key:'courage', label:'↗ Hall of Courage'}, {key:'regret', label:'↩ Garden of Regret'} ];
+          doorsEl.innerHTML = doors.map(d=>`<button class="card door" data-door="${d.key}">${d.label}</button>`).join('');
+          doorsEl.querySelectorAll('[data-door]').forEach(btn=> btn.onclick = (ev)=> withLoading(ev.target, ()=> navigate(btn.dataset.door)) );
+
+          // reflection
+          const area = root.querySelector('[data-input="reflection"]');
+          root.querySelector('.emoji').addEventListener('click', (e)=>{ if(e.target.tagName==='BUTTON'){ area.value = (area.value? area.value+' ': '') + e.target.textContent; } });
+          root.querySelector('[data-action="submit"]').onclick = (ev)=> withLoading(ev.target, async ()=>{
+            const text = area.value.trim(); if(!text) return; await submitReflection(text); area.value=''; render();
+          });
+          return;
+        }
+        if(state.stage==='summary'){
+          show('summary-tpl');
+          const summaryText = `You explored: ${state.visited.join(', ')||'—'}\nYou carry: ${(state.artifacts.map(a=>a.name).join(', '))||'—'}\nYou leave the labyrinth carrying the light of all your feelings.`;
+          root.querySelector('[data-bind="summary"]').textContent = summaryText;
+          root.querySelector('[data-action="copy"]').onclick = ()=> navigator.clipboard?.writeText(summaryText);
+          root.querySelector('[data-action="restart"]').onclick = ()=> { Object.assign(state, { stage:'home', emotion:'gratitude', desc:'', prompt:'', visited:[], artifacts:[] }); save(); render(); };
+        }
+      }
+
+      async function enter(start){
+        const init = await api('init', { start });
+        const roomKey = init?.room || start || 'gratitude';
+        await describe(roomKey);
+        state.visited.push(ROOMS[roomKey]||roomKey);
+        state.stage='room';
+        save(); render();
+      }
+
+      async function describe(room){
+        const d = await api('describe', { room });
+        state.emotion = room;
+        state.desc = d?.description || '';
+        state.prompt = (d?.questions && d.questions[0]) || 'What do you notice here?';
+        save();
+      }
+
+      async function submitReflection(text){
+        const r = await api('reflect', { room: state.emotion, reflection: text });
+        if(r?.artifact){ state.artifacts.push({ ...r.artifact, emotion: state.emotion }); }
+        save();
+      }
+
+      async function navigate(next){
+        const n = await api('navigate', { from: state.emotion, direction: next });
+        const key = n?.room || next;
+        await describe(key);
+        state.visited.push(ROOMS[key]||key);
+        save(); render();
+      }
+
+      function withLoading(btn, fn){
+        const prev = btn.innerHTML; btn.disabled = true; btn.classList.add('loading'); btn.innerHTML = '...';
+        Promise.resolve(fn()).finally(()=> { btn.disabled=false; btn.classList.remove('loading'); btn.innerHTML = prev; });
+      }
+
+      // ambient background
+      (function ambient(){
+        const el = document.getElementById('ambient');
+        el.innerHTML = '<div class="blob a"></div><div class="blob b"></div>';
+      })();
+
+      render();
+    </script>
+  </body>
+</html>

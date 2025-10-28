@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next { height: 100%; }
+body { background: radial-gradient(1000px 500px at 10% -10%, rgba(255,78,205,.08), transparent 60%),
+              radial-gradient(1000px 700px at 90% 10%, rgba(85,230,255,.08), transparent 60%), #0a0b1e;
+       color: #eef2f6; font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji','Segoe UI Emoji', sans-serif; }
+
+.header { @apply bg-white/5 backdrop-blur-xl border-b border-white/10; }
+.panel { @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-neon; }
+.btn { @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 transition-colors; }
+.btn-primary { @apply btn; background: linear-gradient(90deg, rgba(255,78,205,.22), rgba(85,230,255,.22)); }
+.badge { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-white/80; }
+.input { @apply w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-white/20; }
+
+.turntable { @apply rounded-2xl border border-white/10 bg-white/5; }
+.viz-bar { width:6px; background: linear-gradient(180deg, #55e6ff, #ff4ecd); border-radius: 9999px; }

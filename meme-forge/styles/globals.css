@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next { height: 100%; }
+body { @apply bg-gradient-to-br from-pop-900 via-ink to-pop-700 text-white; }
+.brand { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-sm; }
+.card { @apply bg-white/10 border border-white/10 rounded-2xl backdrop-blur-xl shadow-bubble; }
+.btn { @apply px-4 py-2 rounded-xl bg-white/20 hover:bg-white/30 transition; }
+.btn-ghost { @apply px-4 py-2 rounded-xl bg-white/10 border border-white/10; }
+.meme-text { font-family: Impact, 'Anton', 'Bebas Neue', system-ui, sans-serif; letter-spacing: 0.5px; }

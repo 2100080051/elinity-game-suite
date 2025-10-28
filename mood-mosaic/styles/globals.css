@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next {
+  height: 100%;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* Creative rainbow gradient */
+body {
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(168,85,247,0.2), transparent 10%),
+              radial-gradient(900px 500px at 90% 90%, rgba(236,72,153,0.15), transparent 10%),
+              linear-gradient(180deg, #8b5cf6 0%, #ec4899 50%, #f59e0b 100%);
+}
+
+.glass { background: rgba(255,255,255,0.08); backdrop-filter: blur(8px) saturate(120%); border: 1px solid rgba(255,255,255,0.1) }
+.glass-strong { background: rgba(255,255,255,0.12); backdrop-filter: blur(12px) saturate(130%); border: 1px solid rgba(255,255,255,0.16) }
+.card-shadow { box-shadow: 0 6px 20px rgba(11,11,15,0.45) }
+
+/* Image gallery */
+.image-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; max-height: 500px; overflow-y: auto; padding: 16px; background: rgba(0,0,0,0.2); border-radius: 16px }
+
+.gallery-image { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 12px; cursor: grab; transition: transform 200ms ease, box-shadow 200ms ease; border: 2px solid rgba(255,255,255,0.1) }
+.gallery-image:hover { transform: scale(1.05); box-shadow: 0 8px 24px rgba(139,92,246,0.4) }
+.gallery-image:active { cursor: grabbing }
+
+/* Mosaic grid */
+.mosaic-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; min-height: 400px; background: rgba(0,0,0,0.3); border-radius: 16px; padding: 16px; border: 2px dashed rgba(255,255,255,0.2) }
+.mosaic-slot { aspect-ratio: 1; background: rgba(255,255,255,0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: all 200ms ease; position: relative }
+.mosaic-slot.filled { background: transparent }
+.mosaic-slot.drag-over { background: rgba(139,92,246,0.3); border: 2px solid #8b5cf6 }
+
+.mosaic-image { width: 100%; height: 100%; object-fit: cover; border-radius: 8px; cursor: pointer; transition: opacity 200ms ease }
+.mosaic-image:hover { opacity: 0.8 }
+
+.remove-btn { position: absolute; top: 4px; right: 4px; background: rgba(239,68,68,0.9); color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; opacity: 0; transition: opacity 200ms ease }
+.mosaic-slot:hover .remove-btn { opacity: 1 }
+
+/* Buttons */
+.btn-primary { background: linear-gradient(135deg, #8b5cf6, #ec4899); color: #fff; transition: transform 160ms ease, box-shadow 160ms ease }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(139,92,246,0.3) }
+.btn-secondary { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.16); transition: all 160ms ease }
+.btn-secondary:hover { background: rgba(255,255,255,0.14) }
+.btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; transition: all 160ms ease }
+.btn-danger:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(239,68,68,0.3) }
+
+/* Input/Select */
+textarea, input, select { color: #fff; background: rgba(0,0,0,0.28); caret-color: #fff; border: 1px solid rgba(255,255,255,0.1) }
+textarea::placeholder, input::placeholder { color: rgba(255,255,255,0.55) }
+textarea:focus, input:focus, select:focus { outline: none; box-shadow: 0 8px 28px rgba(139,92,246,0.2); border: 1px solid rgba(255,255,255,0.18) }
+
+/* Interpretation panel */
+.interpretation { background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(236,72,153,0.1)); border: 1px solid rgba(139,92,246,0.3); padding: 24px; border-radius: 16px; margin-top: 24px }
+
+::-webkit-scrollbar { width: 8px }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 9999px }
+
+/* Elinity brand badge */
+.elinity-badge{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #581c87, #8b5cf6);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 2px rgba(255,255,255,0.1);
+  z-index: 9999;
+  animation: badge-glow 3s ease-in-out infinite;
+}
+.elinity-badge::before{ content:'⚡'; margin-right:6px; animation: pulse 2s ease-in-out infinite; }
+@keyframes badge-glow{
+  0%,100%{ box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 2px rgba(139,92,246,0.35), 0 0 24px rgba(236,72,153,0.25); }
+  50%{ box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 2px rgba(236,72,153,0.35), 0 0 24px rgba(255,159,10,0.25); }
+}
+@keyframes pulse{ 0%,100%{ transform: scale(1);} 50%{ transform: scale(1.2);} }

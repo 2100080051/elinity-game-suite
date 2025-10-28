@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next {
+  height: 100%;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* Purple/Yellow playful gradient */
+body {
+  background: radial-gradient(1200px 600px at 10% 8%, rgba(202, 138, 4, 0.18), transparent 10%),
+              radial-gradient(900px 500px at 90% 92%, rgba(147, 51, 234, 0.12), transparent 10%),
+              linear-gradient(180deg, #a855f7 0%, #f59e0b 100%);
+}
+
+/* Glass */
+.glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(8px) saturate(120%); border: 1px solid rgba(255,255,255,0.08) }
+.glass-strong { background: rgba(255,255,255,0.1); backdrop-filter: blur(12px) saturate(130%); border: 1px solid rgba(255,255,255,0.14) }
+.card-shadow { box-shadow: 0 6px 20px rgba(11,11,15,0.45) }
+
+/* Fun badges */
+.badge { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); padding: 4px 10px; border-radius: 9999px; color: #fff; font-size: 12px }
+
+/* Buttons */
+.btn-primary { background: linear-gradient(135deg,#f59e0b,#a855f7); color: #fff; transition: transform 160ms ease, box-shadow 160ms ease }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(168,85,247,0.28) }
+.btn-secondary { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.14) }
+.btn-secondary:hover { background: rgba(255,255,255,0.14) }
+
+/* Textarea */
+textarea { color:#fff; background: rgba(0,0,0,0.28); caret-color:#fff; }
+textarea::placeholder { color: rgba(255,255,255,0.55) }
+textarea:focus { outline: none; box-shadow: 0 8px 28px rgba(168,85,247,0.2); border: 1px solid rgba(255,255,255,0.18) }
+
+/* Emoji size */
+.emoji { font-size: 1.4rem }
+
+/* Elinity brand badge */
+.elinity-badge{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #a855f7, #f59e0b);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 2px rgba(255,255,255,0.1);
+  z-index: 9999;
+  animation: badge-glow 3s ease-in-out infinite;
+}
+.elinity-badge::before{ content:'⚡'; margin-right:6px; animation: pulse 2s ease-in-out infinite; }
+@keyframes badge-glow{
+  0%,100%{ box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 2px rgba(168,85,247,0.35), 0 0 24px rgba(168,85,247,0.3); }
+  50%{ box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 0 2px rgba(245,158,11,0.35), 0 0 24px rgba(245,158,11,0.3); }
+}
+@keyframes pulse{ 0%,100%{ transform: scale(1);} 50%{ transform: scale(1.2);} }

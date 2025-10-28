@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html, body, #__next { height: 100%; }
+
+/* Fonts: Quicksand for headers, Poppins for UI */
+body {
+  @apply bg-[#0a0a0b] text-white;
+  background: radial-gradient(1000px 700px at 50% -100px, rgba(196,181,253,0.08), rgba(0,0,0,0)),
+              radial-gradient(900px 600px at 50% 120%, rgba(255,223,128,0.07), rgba(0,0,0,0));
+  font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.sky { background-image: var(--sky, linear-gradient(180deg, rgba(125,211,252,0.18), rgba(196,181,253,0.16), rgba(255,195,160,0.16))); animation: breathe 12s ease-in-out infinite; }
+.surface { @apply bg-white/5 border border-white/10 rounded-2xl shadow-glow; }
+.btn { @apply px-4 py-3 rounded-xl border border-white/20 text-white hover:bg-white/10 active:bg-white/20 transition; }
+.btn-primary { @apply px-4 py-3 rounded-xl bg-softGold text-black font-semibold hover:opacity-90 active:opacity-80 shadow-glow; }
+.input { @apply w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 placeholder:text-white/60; }
+.select { @apply w-full px-4 py-3 rounded-xl bg-white text-black border border-white/10; }
+.badge { @apply px-2 py-1 rounded-lg text-xs bg-white/10 border border-white/10; }
+
+h1.title { font-family: 'Quicksand', 'Nunito', ui-sans-serif; @apply text-4xl md:text-5xl text-softGold drop-shadow; }
+.sub { @apply text-white/80; }
+
+.block { @apply rounded-lg border border-white/10; height: 48px; }
+.blockLabel { @apply text-xs text-white/80; }
+
+/* mini tower */
+.mini-tower { @apply flex items-end gap-1; }
+.mini-tower .mini { width:8px; height:12px; border-radius:2px; background: rgba(255,255,255,0.4); }

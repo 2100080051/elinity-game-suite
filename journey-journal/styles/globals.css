@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next { height: 100%; }
+
+body {
+  @apply bg-parchment text-deepblue font-merri;
+  background: radial-gradient(1200px 600px at 10% -10%, rgba(212,160,23,0.08), transparent 70%),
+              radial-gradient(1000px 500px at 90% 0%, rgba(47,109,78,0.08), transparent 70%);
+  background-attachment: fixed;
+}
+
+.paper { @apply bg-white/70 backdrop-blur rounded-xl border border-deepblue/10 shadow-lg; }
+
+/* ELINITY badge */
+.elinity-badge {
+  position: fixed; top: 16px; right: 16px; z-index: 50;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 12px; border-radius: 9999px;
+  background: linear-gradient(90deg, rgba(212,160,23,0.15), rgba(47,109,78,0.15));
+  border: 1px solid rgba(15,42,68,0.18);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+.elinity-glow { width: 8px; height: 8px; border-radius: 9999px; background: radial-gradient(circle, #D4A017, #2F6D4E); animation: pulseGlow 1.8s ease-in-out infinite; }
+.elinity-text { font-weight: 700; letter-spacing: 0.08em; font-size: 12px; color: #0F2A44; }
+@keyframes pulseGlow { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px #D4A017);} 50% { transform: scale(1.35); filter: drop-shadow(0 0 6px #2F6D4E);} }
+
+.h-ink { animation: inkFade 600ms ease-out; }
+.h-page { animation: pageTurn 500ms ease-out; }

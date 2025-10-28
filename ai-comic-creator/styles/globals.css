@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html, body, #__next { height: 100%; }
+
+body {
+  @apply bg-ink text-white;
+  background-image: radial-gradient(1000px 700px at 50% -100px, rgba(42,164,255,0.08), rgba(0,0,0,0)),
+                    radial-gradient(900px 600px at 50% 120%, rgba(255,212,0,0.08), rgba(0,0,0,0));
+  font-family: 'Lato', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.topbar { @apply sticky top-0 z-30 backdrop-blur bg-black/30 border-b border-white/10; }
+.surface { @apply bg-white/5 border border-white/10 rounded-2xl shadow-glow; }
+.btn { @apply px-4 py-3 rounded-xl border border-white/20 text-white hover:bg-white/10 active:bg-white/20 transition; }
+.btn-primary { @apply px-4 py-3 rounded-xl bg-comicYellow text-black font-semibold hover:opacity-90 active:opacity-80 shadow-glow; }
+.input { @apply w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 placeholder:text-white/60; }
+.select { @apply w-full px-4 py-3 rounded-xl bg-white text-black border border-white/10; }
+.badge { @apply px-2 py-1 rounded-lg text-xs bg-white/10 border border-white/10; }
+
+h1.title { font-family: 'Bangers', cursive; @apply text-5xl text-comicYellow drop-shadow; }
+h2.panel-title { font-family: 'Comic Neue', cursive; @apply text-2xl text-white; }
+
+.panel-canvas { @apply bg-black/30 border border-white/10 rounded-xl h-64 flex items-center justify-center text-white/60; box-shadow: 4px 4px 0 rgba(255,61,166,0.4); }
+.progress { @apply h-2 bg-white/10 rounded-full overflow-hidden; }
+.progress > span { @apply block h-full bg-comicMagenta; }

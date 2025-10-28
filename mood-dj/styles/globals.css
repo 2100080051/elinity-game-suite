@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #__next { height: 100%; }
+  body { @apply bg-studio-800 text-white; }
+}
+
+@layer components {
+  .app-bg { @apply fixed inset-0 -z-10 bg-prismGlow bg-no-repeat; background-size: cover; }
+  .scan { @apply fixed inset-0 -z-10 bg-scanlines; mix-blend-mode: overlay; }
+
+  .container { @apply mx-auto max-w-6xl px-6; }
+  .header { @apply sticky top-0 z-40 backdrop-blur bg-studio-900/50 border-b border-white/10; }
+  .brand { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-glass-100 border border-white/10 text-sm shadow-glow; }
+
+  .panel { @apply rounded-2xl bg-studio-700/60 border border-white/10 shadow-glow; }
+  .panel-inner { @apply p-4; }
+  .label { @apply text-xs uppercase tracking-wide text-white/60; }
+
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-semibold transition; }
+  .btn-primary { @apply text-white bg-gradient-to-r from-prism-400 via-prism-500 to-prism-600 shadow-neon; }
+  .btn-secondary { @apply text-white/90 bg-glass-100 border border-white/10; }
+
+  .chip { @apply px-2.5 py-1 rounded-full text-xs bg-glass-100 border border-white/10; }
+  .chip-active { @apply bg-gradient-to-r from-prism-400 to-prism-500; }
+
+  .input { @apply w-full px-3 py-2 rounded-lg border border-white/10 bg-glass-100 text-white placeholder-white/60; }
+
+  .eq { @apply flex items-end gap-1 h-8; }
+  .bar { @apply w-1.5 rounded-sm bg-gradient-to-b from-prism-600 to-prism-500 origin-bottom animate-eq; }
+}

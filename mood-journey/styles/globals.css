@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+html, body, #__next { height: 100%; }
+
+/* Fonts: Poppins for UI, Lora for titles */
+body {
+  @apply bg-black text-white;
+  background: radial-gradient(1000px 700px at 50% -100px, rgba(139,230,255,0.08), rgba(0,0,0,0)),
+              radial-gradient(900px 600px at 50% 120%, rgba(255,211,138,0.07), rgba(0,0,0,0));
+  font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.mood-surface { @apply bg-white/5 border border-white/10 rounded-2xl shadow-glow; }
+.btn { @apply px-4 py-3 rounded-xl border border-white/20 text-white hover:bg-white/10 active:bg-white/20 transition; }
+.btn-primary { @apply px-4 py-3 rounded-xl bg-cyanGlow text-black font-semibold hover:opacity-90 active:opacity-80 shadow-glow; }
+.input { @apply w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 placeholder:text-white/60; }
+.select { @apply w-full px-4 py-3 rounded-xl bg-white text-black border border-white/10; }
+.badge { @apply px-2 py-1 rounded-lg text-xs bg-white/10 border border-white/10; }
+
+h1.title { font-family: 'Lora', Georgia, serif; @apply text-4xl md:text-5xl text-white drop-shadow; }
+.sub { @apply text-white/80; }
+
+/* Animated background */
+.bg-breathe { background-image: var(--bg, radial-gradient(circle at 50% 0%, rgba(125,185,232,0.25), rgba(184,137,244,0.2), rgba(255,211,138,0.2))); animation: breathe 10s ease-in-out infinite; }
+@keyframes breathe { 0%,100%{ filter:saturate(90%) brightness(90%);} 50%{ filter:saturate(110%) brightness(105%);} }
+
+/* Mood color helpers */
+.mood-Calm { --mood:#79b8ff; }
+.mood-Curious { --mood:#b889f4; }
+.mood-Gratitude { --mood:#ffd38a; }
+.mood-Joy { --mood:#ffe27a; }
+.mood-Melancholy { --mood:#8aa1b1; }
+
+.progress-dot { width: 12px; height: 12px; border-radius: 9999px; background: var(--mood, #999); box-shadow: 0 0 10px var(--mood, #999); }

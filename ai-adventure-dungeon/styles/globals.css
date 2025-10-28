@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #__next { height: 100%; }
+
+body {
+  @apply bg-dungeon text-mist font-cinzel antialiased;
+  background-image:
+    radial-gradient(1200px 600px at 10% -10%, rgba(212,175,55,0.08), transparent 70%),
+    radial-gradient(1000px 500px at 90% 0%, rgba(185,28,28,0.10), transparent 70%),
+    radial-gradient(700px 400px at 50% 100%, rgba(148,163,184,0.08), transparent 60%);
+  background-attachment: fixed;
+}
+
+.card { @apply bg-white/5 backdrop-blur rounded-xl border border-white/10 shadow-lg; }
+.btn { @apply px-4 py-2 rounded-lg border border-white/10 bg-white/10 hover:bg-white/20 transition-colors; }
+.btn-gold { @apply bg-gradient-to-r from-gold to-crimson text-dungeon font-bold border-0 hover:opacity-95; }
+.badge { @apply inline-flex items-center gap-2 px-2 py-1 rounded-full bg-white/10 border border-white/10 text-xs; }
+
+/* Premium polish */
+.glass { @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl; }
+.heading-gradient { background: linear-gradient(90deg, #D4AF37, #FACC15 30%, #B91C1C 70%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.section-title { @apply text-sm uppercase tracking-wider text-mist/80; }
+.chip { @apply px-3 py-1 rounded-full bg-white/10 border border-white/10 text-sm hover:bg-white/20 transition; }
+.btn-ghost { @apply bg-transparent border-white/20 hover:bg-white/10; }
+.btn-primary { @apply bg-gradient-to-r from-gold to-crimson text-dungeon font-semibold border-0 hover:opacity-95; }
+.input { @apply w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 outline-none focus:border-gold/60; }
+.select { @apply w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 outline-none focus:border-gold/60; }
+
+/* Narration */
+.narration { @apply animate-fadeIn; }
+.narration.typewriter { overflow: hidden; white-space: nowrap; animation: typing 2.2s steps(40, end), blink 1.2s step-end infinite; border-right: 1px solid rgba(241,245,249,0.6); }
+@keyframes typing { from { width: 0 } to { width: 100% } }
+@keyframes blink { from, to { border-color: transparent } 50% { border-color: rgba(241,245,249,0.6) } }
+
+.elinity-badge { position: fixed; top: 16px; right: 16px; z-index: 50; display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 9999px; background: linear-gradient(90deg, rgba(212,175,55,0.2), rgba(185,28,28,0.2)); border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+.elinity-glow { width: 8px; height: 8px; border-radius: 9999px; background: radial-gradient(circle, #D4AF37, #B91C1C); animation: pulseGlow 1.8s ease-in-out infinite; }
+.elinity-text { font-weight: 700; letter-spacing: 0.08em; font-size: 12px; color: #F1F5F9; }
+@keyframes pulseGlow { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px #D4AF37);} 50% { transform: scale(1.35); filter: drop-shadow(0 0 6px #B91C1C);} }
+
+.torch { @apply animate-torch; }
+
+/* Dice visual */
+.dice { @apply w-12 h-12 grid place-items-center rounded-lg bg-white/10 border border-white/10 text-gold font-bold text-lg; box-shadow: inset 0 0 12px rgba(212,175,55,0.2); }
+.dice.spin { animation: spin 0.6s ease-in-out; }
+@keyframes spin { 0% { transform: rotate(0deg) scale(1) } 50% { transform: rotate(180deg) scale(1.15) } 100% { transform: rotate(360deg) scale(1) } }
+
+/* Victory confetti */
+.confetti-wrapper { pointer-events: none; position: fixed; inset: 0; overflow: hidden; }
+.confetti { position: absolute; top: -10%; width: 8px; height: 14px; background: linear-gradient(180deg, #D4AF37, #B91C1C); opacity: 0.9; animation: fall 3.6s linear infinite; border-radius: 2px; }
+@keyframes fall { 0% { transform: translateY(-10%) rotate(0deg) } 100% { transform: translateY(110vh) rotate(540deg) } }
