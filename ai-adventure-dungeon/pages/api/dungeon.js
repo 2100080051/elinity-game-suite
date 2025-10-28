@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const { OPENROUTER_API_KEY, OPENROUTER_MODEL, NEXT_PUBLIC_APP_URL, DEBUG_DUNGEON } = process.env;
-  const useAI = !!(OPENROUTER_API_KEY && OPENROUTER_MODEL);
+  if (!OPENROUTER_API_KEY || !OPENROUTER_MODEL) return res.status(500).json({ error: 'Missing OpenRouter configuration' });
 
   const { action, team, players, depth, kind, detail, stats } = req.body || {};
   const { theme } = req.body || {};
@@ -53,50 +53,6 @@ export default async function handler(req, res) {
     response_format: { type: 'json_object' },
   };
 
-  // Shared offline fallback so we can serve gracefully without AI
-  const sOffline = (stats) => safeStats(stats);
-  const offline = () => {
-    const mode = 'offline';
-    if (action === 'start') return { mode, intro: 'Welcome, travelers. The dungeon breathes in the dark, waiting for your first step…' };
-    if (action === 'floor') {
-      const themes = [theme, 'ancient ruins','ice temple','forest labyrinth','clockwork citadel'].filter(Boolean);
-      const th = themes[Math.floor(Math.random()*themes.length)];
-      const roomLib = [
-        'Puzzle: shifting tiles and a whispering riddle',
-        'Creature: a mossy sentinel with amber eyes',
-        'Twist: a corridor that loops unless you sing',
-        'Puzzle: mirrored sigils that rearrange when breathed upon',
-        'Creature: a sleepy basilisk that hates loud songs',
-        'Twist: doors that remember lies',
-      ];
-      const pick = () => roomLib.splice(Math.floor(Math.random()*roomLib.length),1)[0];
-      return { mode, title: `Depth ${depth||1}: Ember Halls`, theme: th, rooms: [pick(), pick(), pick()] };
-    }
-    if (action === 'act') {
-      const lines = [
-        'You move cautiously. A hidden glyph flares — danger passes, and a small cache of coins glitters nearby.',
-        'Your torchlight catches runes. A soft click, then relief — you pluck a trinket from a niche.',
-        'Wind hisses through cracks. You step light; a pressure plate sighs and resets beneath your boot.',
-      ];
-      const s = sOffline(stats);
-      const delta = Math.max(1, Math.floor(Math.random()*4));
-      const hp = Math.max(0, s.health - (roll<=3? 5 : 0));
-      const loot = s.loot + delta;
-      const xp = s.xp + 1;
-      return { mode, narration: lines[Math.floor(Math.random()*lines.length)], stats: { ...s, health: hp, loot, xp }, rooms: ['Puzzle: mirrored sigils','Creature: chittering cave-things','Twist: the floor remembers your footsteps'], roll };
-    }
-    if (action === 'status') return { mode, tick: 'Your torch sputters, but courage holds. A draft suggests a chamber ahead.' };
-    if (action === 'end') return { mode, summary: 'You leave the dungeon with scars and laughter, clutching a curious coin that hums in moonlight.' };
-    return { mode, ok: true };
-  };
-
-  // If AI is not configured (e.g., Vercel without env vars), serve offline results
-  if (!useAI) {
-    const data = offline();
-    if (DEBUG_DUNGEON) console.log('[dungeon.debug/offline]', { action, data });
-    return res.status(200).json(data);
-  }
-
   try {
     const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
@@ -115,13 +71,23 @@ export default async function handler(req, res) {
 
     let data = null; try { data = JSON.parse(cleaned); } catch(e) { const m = cleaned.match(/\{[\s\S]*\}/); if (m) { try { data = JSON.parse(m[0]); } catch(_) {} } }
 
-  if (!data || typeof data !== 'object') { data = offline(); }
-  else { data = { mode: 'ai', ...data }; }
+    if (!data || typeof data !== 'object') {
+      if (action === 'start') data = { intro: 'Welcome, travelers. The dungeon breathes in the dark, waiting for your first step…' };
+  else if (action === 'floor') data = { title: `Depth ${depth||1}: Ember Halls`, theme: theme || 'ancient ruins', rooms: ['Puzzle: shifting tiles and a whispering riddle','Creature: a mossy sentinel with amber eyes','Twist: a corridor that loops unless you sing'] };
+  else if (action === 'act') data = { narration: 'You move cautiously. A hidden glyph flares — danger passes, and a small cache of coins glitters nearby.', stats: { ...(safeStats(stats)), loot: (safeStats(stats).loot+3) }, rooms: ['Puzzle: mirrored sigils','Creature: chittering cave-things','Twist: the floor remembers your footsteps'], roll };
+      else if (action === 'status') data = { tick: 'Your torch sputters, but courage holds. A draft suggests a chamber ahead.' };
+      else if (action === 'end') data = { summary: 'You leave the dungeon with scars and laughter, clutching a curious coin that hums in moonlight.' };
+    }
 
     if (DEBUG_DUNGEON) console.log('[dungeon.debug]', { action, text, data });
     return res.status(200).json(data);
   } catch (err) {
     console.error('OpenRouter error', err);
-    return res.status(200).json(offline());
+    if (action === 'start') return res.status(200).json({ intro: 'Welcome to the dungeon (offline mode). Light your torch and begin.' });
+    if (action === 'floor') return res.status(200).json({ title: `Depth ${depth||1}: Ember Halls`, theme: 'ancient ruins', rooms: ['Puzzle: shifting tiles', 'Creature: sleepy basilisk', 'Twist: echo that answers wrong'] });
+    if (action === 'act') return res.status(200).json({ narration: 'You act decisively; the dungeon yields a little.', stats: safeStats(stats), rooms: [] });
+    if (action === 'status') return res.status(200).json({ tick: 'The air moves; something watches, but not unkindly.' });
+    if (action === 'end') return res.status(200).json({ summary: 'You exit, a story heavier and a smile brighter.' });
+    return res.status(500).json({ error: 'AI service error' });
   }
 }
