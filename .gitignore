@@ -40,3 +40,6 @@ coverage/
 
 # Misc
 *.tgz
+
+# Exclude nested git repositories (keep as separate projects or add as submodules)
+Memory match maker/memory-match-maker/
