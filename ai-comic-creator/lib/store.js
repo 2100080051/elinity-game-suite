@@ -11,6 +11,17 @@ function newSession(){
   return { sessionId: id };
 }
 
+// Serverless-friendly: ensure a session exists for a given id (used during setup)
+function ensureSession(sessionId){
+  const id = String(sessionId || '').trim() || uid();
+  let s = store.sessions.get(id);
+  if(!s){
+    s = { id, setup:null, title:'', index:0, dialogues:[], panels:[], finished:false };
+    store.sessions.set(id, s);
+  }
+  return s;
+}
+
 function getState(sessionId){
   const s = store.sessions.get(sessionId); if(!s) throw new Error('No session');
   const current = s.panels[s.index-1] || null;
@@ -18,7 +29,8 @@ function getState(sessionId){
 }
 
 async function setupComic(sessionId, cfg){
-  const s = store.sessions.get(sessionId); if(!s) throw new Error('No session');
+  // Auto-create the session if missing so first-call setup works on serverless cold starts
+  const s = store.sessions.get(sessionId) || ensureSession(sessionId);
   const { theme, style, panels, tone } = cfg;
   const conf = await confirmSetup({ theme, style, panels, tone });
   s.setup = { theme, style, panels, tone };
